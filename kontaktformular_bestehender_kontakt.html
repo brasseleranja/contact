@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +8,19 @@ window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const accountid = params.get("accountid");
   const accountname = params.get("accountname");
+  const contactid = params.get("id");
 
-  if (!accountid || !accountname) {
-    document.body.innerHTML = "❌ Fehlende Parameter: accountid oder accountname.";
+  if (!accountid || !accountname || !contactid) {
+    document.body.innerHTML = "❌ Fehlende Parameter: accountid, accountname oder id.";
     return;
   }
 
-  // Ziel-URL für das Dynamics 365-Kontaktformular (bestehender Kontakt)
+  // Ziel-URL für das Dynamics 365-Kontaktformular (bestehender Kontakt, dynamische id)
   const zielUrl = "https://kometdentallive.crm4.dynamics.com/main.aspx" +
     "?appid=46805fe0-cfa9-e811-a950-000d3ab3aed4" +
     "&pagetype=entityrecord" +
     "&etn=contact" +
-    "&id=ce7f782b-3c90-ef11-8a6a-000d3a649891" +
+    "&id=" + contactid +
     "&extraqs=" +
     encodeURIComponent("parentcustomerid=" + accountid) +
     "%26" + encodeURIComponent("parentcustomeridname=" + accountname) +
