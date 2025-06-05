@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kontaktformular (bestehender Kontakt) Weiterleitung</title>
+<script>
+window.onload = function () {
+  const params = new URLSearchParams(window.location.search);
+  const accountid = params.get("accountid");
+  const accountname = params.get("accountname");
+
+  if (!accountid || !accountname) {
+    document.body.innerHTML = "❌ Fehlende Parameter: accountid oder accountname.";
+    return;
+  }
+
+  // Ziel-URL für das Dynamics 365-Kontaktformular (bestehender Kontakt)
+  const zielUrl = "https://kometdentallive.crm4.dynamics.com/main.aspx" +
+    "?appid=46805fe0-cfa9-e811-a950-000d3ab3aed4" +
+    "&pagetype=entityrecord" +
+    "&etn=contact" +
+    "&id=ce7f782b-3c90-ef11-8a6a-000d3a649891" +
+    "&extraqs=" +
+    encodeURIComponent("parentcustomerid=" + accountid) +
+    "%26" + encodeURIComponent("parentcustomeridname=" + accountname) +
+    "%26" + encodeURIComponent("parentcustomeridtype=account");
+
+  // Weiterleiten
+  window.location.href = zielUrl;
+};
+</script>
+</head>
+<body>
+<p>🔄 Bitte warten – der bestehende Kontakt wird geladen ...</p>
+</body>
+</html>
